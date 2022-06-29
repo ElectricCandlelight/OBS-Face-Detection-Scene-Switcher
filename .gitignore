@@ -1,0 +1,5 @@
+.venv/
+dev/
+build/
+dist/
+doc/
