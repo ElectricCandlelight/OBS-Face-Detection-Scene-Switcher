@@ -3,3 +3,4 @@ dev/
 build/
 dist/
 doc/
+__pycache__/

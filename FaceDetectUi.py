@@ -156,6 +156,18 @@ class CameraSettings:
         with open("settings.ini", "w") as configfile:
             parser.write(configfile)
 
+    def get_urlcam(self, url, index, mode):
+        url=self.var_urlcam.get()
+        if url:
+            self.drp_cam.config(state="disable")
+            parser = ConfigParser()
+            parser.read("settings.ini")
+            parser.set("cam"+ self.name, "url", url)
+            with open("settings.ini", "w") as configfile:
+                parser.write(configfile)
+        else:
+            self.drp_cam.config(state="normal")
+
     def detect_selected(self, event):
         self.master.focus()
         parser = ConfigParser()
@@ -244,12 +256,10 @@ class CameraSettings:
             self.btn_start.config(text="Start", command=self.face_detect)
 
     def find_camera(self):
-        camera = FindCamera()
-        working_ports = camera.working_ports
-        camera.start()
-        #camera =  FindCamera(3, "3").start()
-        #available_ports, working_ports = list_ports()
-        self.monitor_cam(camera.thread1, camera)
+        self.camera = FindCamera()
+        working_ports = self.camera.working_ports
+        self.camera.start()
+        self.monitor_cam(self.camera.thread1, self.camera)
         for i in range(4):
             cam_list[i].drp_cam.config(value= working_ports)
 
@@ -258,10 +268,9 @@ class CameraSettings:
             # check the thread every 100ms
             root.after(100, lambda: self.monitor_cam(thread, camera))
         else:
-            print("Selected")
-            print(camera.seleceted)
             if not camera.seleceted == 0:
-                self.drp_cam.current(camera.seleceted - 1)
+                index = camera.working_ports.index(camera.seleceted)
+                self.drp_cam.current(index)
                 parser = ConfigParser()
                 parser.read("settings.ini")
                 parser.set("cam" + self.name, "camera", self.drp_cam.get())
@@ -357,8 +366,6 @@ def obs_get_scenes():
     for s in scenes.getScenes():
         name = s['name']
         scenes_list.append(name)
-    print(scenes_list)
-
 
 def main(): 
     global root
