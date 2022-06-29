@@ -4,7 +4,7 @@
  Monitor up to 4 video inputs for face detection. When a face is detected in a video it will switch to the user specified scene, when it no longer detects a face it can take one of three actions: switch to a specific scene, go to the previous scene before detection or do nothing and stay on the detected scene.
  
 ## Download
-[OBS Face Detect Switcher]()
+[OBS Face Detect Switcher](https://github.com/ElectricCandlelight/OBS-Camera-Auto-Scene-Change/blob/master/FaceDetect.zip)
 
 ## Usage
 ### OBS Settings
