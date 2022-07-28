@@ -18,7 +18,7 @@ The program requires OBS websockets enabled, a port number and a password if aut
  
 ### Detector Settings
 
-![Detector Settings](docs\detector_settings.png)
+![Detector Settings](docs/detector_settings.png)
 
 **Select Camera:** Clicking Find Camera will scan for all available video sources (This takes a few seconds) and cycle through a 5 second preview of each source, pressing any key will select the current camera, or you can use the dropdown box to select a camera.
 
