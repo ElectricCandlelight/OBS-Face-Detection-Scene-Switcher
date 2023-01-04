@@ -71,6 +71,6 @@ class FaceDetect:
         self.stopped = True
 
     def start(self):
-        self.thread1 = threading.Thread(target=self.face_detect, args=(), daemon=True)
-        self.thread1.start()
+        self.thread = threading.Thread(target=self.face_detect, args=(), daemon=True)
+        self.thread.start()
         return self

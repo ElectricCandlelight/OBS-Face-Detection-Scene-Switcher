@@ -111,7 +111,7 @@ class CameraSettings:
         self.drp_off_detect= ttk.Combobox(self.lblf_cam, state="readonly", value = scenes_list, width=30)
         self.drp_off_detect.bind("<<ComboboxSelected>>", self.detect_selected)
 
-        self.lbl_off_detect.grid(row=3, column=0, sticky=tk.E, pady=5)
+        self.lbl_off_detect.grid(row=2, column=0, sticky=tk.E, pady=5)
         self.drp_off_detect.grid(row=2, column=1, sticky=tk.W)
 
         #Previous scene CHK
@@ -242,7 +242,7 @@ class CameraSettings:
         self.btn_start.config(text="Stop", command=self.stop_face_detect)
         self.face_detect_obj = FaceDetect(ws, saved_camera, saved_on_detect, saved_prev_scene, saved_loss_none, saved_off_detect, saved_fps, saved_output, self.name).start()
         if saved_output:
-            self.monitor(self.face_detect_obj.thread1)
+            self.monitor(self.face_detect_obj.thread)
 
     def stop_face_detect(self):
         self.btn_start.config(text="Start", command=self.face_detect)
@@ -259,7 +259,7 @@ class CameraSettings:
         self.camera = FindCamera()
         working_ports = self.camera.working_ports
         self.camera.start()
-        self.monitor_cam(self.camera.thread1, self.camera)
+        self.monitor_cam(self.camera.thread, self.camera)
         for i in range(4):
             cam_list[i].drp_cam.config(value= working_ports)
 
@@ -355,6 +355,7 @@ def disconnect():
     ws.disconnect()
     obs_ui.btn_connect.config(text="Connect", command=connect)
     for i in range(4):
+        cam_list[i].face_detect_obj.stop()
         for child in cam_list[i].lblf_cam.winfo_children():
             child.configure(state='disable')
 
